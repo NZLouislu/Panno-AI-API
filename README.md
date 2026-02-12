@@ -1,3 +1,12 @@
+---
+title: Panno-AI-API
+emoji: 📸
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # PannoAI - AI-Powered 3D Panorama Generator
 
 PannoAI is a cutting-edge web application that transforms standard indoor photos into immersive 360° panoramas using Google's Gemini 2.x Multimodal AI. Designed for real estate, interior design, and digital twins, it provides a seamless experience from image upload to interactive 3D exploration.
