@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
             throw new Error("Missing STABILITY_API_KEY in Environment Variables.");
         }
 
-        let result = { image: null, method: "failed" };
+        let result: { image: string | null, method: string } = { image: null, method: "failed" };
 
         // --- CORE LOGIC: Direct Python Local Execution ---
         // Since we are in a unified Docker container on HF, we always run locally.
