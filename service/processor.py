@@ -45,7 +45,10 @@ def process_panorama(base64_images, prompt):
     return inpaint_with_ai(canvas, mask, prompt)
 
 def inpaint_with_ai(img_np, mask_np, prompt):
-    stability_key = os.getenv("STABILITY_API_KEY")
+    stability_key = os.getenv("Home_STABILITY_API_KEY") or os.getenv("STABILITY_API_KEY")
+    
+    if not stability_key:
+        raise Exception("No Stability API key found in worker environment")
     
     _, img_encoded = cv2.imencode(".png", img_np)
     _, mask_encoded = cv2.imencode(".png", mask_np)
