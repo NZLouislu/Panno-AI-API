@@ -33,11 +33,15 @@ jobs:
 
           git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME || true
           
-          # Initialize LFS
+          # Create a temporary orphan branch to squash history
+          # This avoids pushing historical binary blobs that HF rejects
+          git checkout --orphan sync-branch
           git lfs install
+          git add -A
+          git commit -m "Sync: $(date)"
           
           # Push to Hugging Face
-          git push --force space HEAD:main
+          git push --force space sync-branch:main
 
       - name: Verify deployment
         env:
