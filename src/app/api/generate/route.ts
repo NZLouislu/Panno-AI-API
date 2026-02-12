@@ -44,8 +44,10 @@ export async function POST(req: NextRequest) {
 
             console.log("Unified Container: Executing specialized Python engine...");
 
-            // Note: On HF Linux, command is 'python3'
-            const { stdout } = await execAsync(`python3 "${pythonScript}" "${stabilityKey}" "${prompt.replace(/"/g, '\\"')}" ${imageArgs}`, {
+            // Detect OS and use appropriate python command
+            const pythonCmd = process.platform === "win32" ? "python" : "python3";
+
+            const { stdout } = await execAsync(`${pythonCmd} "${pythonScript}" "${stabilityKey}" "${prompt.replace(/"/g, '\\"')}" ${imageArgs}`, {
                 maxBuffer: 1024 * 1024 * 20,
                 timeout: 120000 // 2 minute limit for heavy processing
             });
