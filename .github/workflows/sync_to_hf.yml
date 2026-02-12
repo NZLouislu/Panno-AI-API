@@ -32,7 +32,11 @@ jobs:
           fi
 
           git remote add space https://$HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/$HF_USERNAME/$SPACE_NAME || true
-
+          
+          # Initialize LFS
+          git lfs install
+          
+          # Push to Hugging Face
           git push --force space HEAD:main
 
       - name: Verify deployment
