@@ -25,7 +25,11 @@ def process_panorama(base64_images, prompt):
     status, stitched = stitcher.stitch(images)
     
     if status != cv2.Stitcher_OK:
-        raise Exception(f"Stitching failed with status {status}")
+        print(f"Stitching failed ({status}), falling back to horizontal stack")
+        # Ensure all images have the same height for stacking
+        min_h = min(img.shape[0] for img in images)
+        resized = [cv2.resize(img, (int(img.shape[1] * min_h / img.shape[0]), min_h)) for img in images]
+        stitched = np.hstack(resized)
 
     h, w = stitched.shape[:2]
     canvas_w = w
