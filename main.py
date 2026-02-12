@@ -14,6 +14,10 @@ class PannoRequest(BaseModel):
 async def root():
     return {"status": "online", "engine": "Panno-AI-API"}
 
+@app.get("/health")
+async def health():
+    return {"status": "healthy"}
+
 @app.post("/v1/generate")
 async def generate(request: PannoRequest, x_api_key: str = Header(None)):
     if x_api_key != os.getenv("AUTH_TOKEN"):
